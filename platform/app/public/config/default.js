@@ -87,7 +87,7 @@ window.config = {
       ],
     },
   ],
-  defaultDataSourceName: 'dicomweb',
+  defaultDataSourceName: 'radtureOrthanc',
   /* Dynamic config allows user to pass "configUrl" query string this allows to load config without recompiling application. The regex will ensure valid configuration source */
   // dangerouslyUseDynamicConfig: {
   //   enabled: true,
@@ -99,6 +99,28 @@ window.config = {
   //   regex: /.*/,
   // },
   dataSources: [
+    {
+      namespace: '@ohif/extension-default.dataSourcesModule.dicomweb',
+      sourceName: 'radtureOrthanc',
+      configuration: {
+        friendlyName: 'Radture Orthanc Server',
+        name: 'orthanc',
+        wadoUriRoot: 'http://5.189.133.248:8091/wado',
+        qidoRoot: 'http://5.189.133.248:8091/dicom-web',
+        wadoRoot: 'http://5.189.133.248:8091/dicom-web',
+        qidoSupportsIncludeField: true,
+        imageRendering: 'wadors',
+        thumbnailRendering: 'wadors',
+        enableStudyLazyLoad: true,
+        supportsFuzzyMatching: true,
+        supportsWildcard: true,
+        requestOptions: {
+          requestFromBrowser: true,
+        },
+      },
+    },
+
+
     {
       namespace: '@ohif/extension-default.dataSourcesModule.dicomweb',
       sourceName: 'dicomweb',
