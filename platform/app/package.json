@@ -74,6 +74,8 @@
     "@ohif/ui-next": "3.11.0-beta.56",
     "@svgr/webpack": "^8.1.0",
     "@types/react": "^18.3.3",
+    "ajv": "7.2.4",
+    "ajv-keywords": "4.0.1",
     "classnames": "^2.3.2",
     "core-js": "*",
     "cornerstone-math": "^0.1.9",
