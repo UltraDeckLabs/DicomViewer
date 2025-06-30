@@ -1,0 +1,11 @@
+[phases.setup]
+nixPkgs = ['nodejs_18', 'yarn']
+
+[phases.install]
+cmds = ['yarn install']
+
+[phases.build]
+cmds = ['yarn run build']
+
+[start]
+cmd = 'npx serve platform/app/dist -l 3000'
