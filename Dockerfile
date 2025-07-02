@@ -90,6 +90,7 @@ RUN rm /etc/nginx/conf.d/default.conf
 USER nginx
 COPY --chown=nginx:nginx .docker/Viewer-v3.x /usr/src
 RUN chmod 777 /usr/src/entrypoint.sh
+COPY --from=builder /usr/src/app/platform/app/public/config/default.js /usr/share/nginx/html/config/default.js
 COPY --from=builder /usr/src/app/platform/app/dist /usr/share/nginx/html${PUBLIC_URL}
 # Copy paths that are renamed/redirected generally
 # Microscopy libraries depend on root level include, so must be copied
