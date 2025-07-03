@@ -105,9 +105,9 @@ window.config = {
       configuration: {
         friendlyName: 'Radture Orthanc Server',
         name: 'orthanc',
-        wadoUriRoot: 'http://5.189.133.248:8091/wado',
-        qidoRoot: 'http://5.189.133.248:8091/dicom-web',
-        wadoRoot: 'http://5.189.133.248:8091/dicom-web',
+        wadoUriRoot: 'https://pacs.myradture.com/wado',
+        qidoRoot: 'https://pacs.myradture.com/dicom-web',
+        wadoRoot: 'https://pacs.myradture.com/dicom-web',
         qidoSupportsIncludeField: true,
         imageRendering: 'wadors',
         thumbnailRendering: 'wadors',
