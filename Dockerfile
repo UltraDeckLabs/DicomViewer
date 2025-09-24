@@ -89,7 +89,7 @@ RUN chmod +x ./.docker/compressDist.sh
 RUN ./.docker/compressDist.sh
 
 # Stage 2: Nginx serving
-FROM nginxinc/nginx-unprivileged:1.27-alpine
+FROM nginx:1.27-alpine
 
 ARG PUBLIC_URL=/ohif/
 ENV PUBLIC_URL=${PUBLIC_URL}
