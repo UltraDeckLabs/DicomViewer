@@ -8,8 +8,11 @@ fi
 
 # Write app-config.js from the APP_CONFIG file if set
 if [ -n "$APP_CONFIG" ]; then
-  CONFIG_FILE="/usr/share/nginx/html${PUBLIC_URL}${APP_CONFIG}"
-  OUTPUT_FILE="/usr/share/nginx/html${PUBLIC_URL}app-config.js"
+  # normalize PUBLIC_URL (remove trailing slash if present)
+  PUBLIC_URL=${PUBLIC_URL%/}
+
+  CONFIG_FILE="/usr/share/nginx/html${PUBLIC_URL}/${APP_CONFIG}"
+  OUTPUT_FILE="/usr/share/nginx/html${PUBLIC_URL}/app-config.js"
 
   if [ -f "$CONFIG_FILE" ]; then
     echo "Using APP_CONFIG from $CONFIG_FILE"
@@ -24,12 +27,12 @@ else
 fi
 
 # Gzip app-config.js if non-empty
-if [ -f /usr/share/nginx/html${PUBLIC_URL}app-config.js ]; then
-  if [ -s /usr/share/nginx/html${PUBLIC_URL}app-config.js ]; then
+if [ -f /usr/share/nginx/html${PUBLIC_URL}/app-config.js ]; then
+  if [ -s /usr/share/nginx/html${PUBLIC_URL}/app-config.js ]; then
     echo "Detected non-empty app-config.js. Ensuring .gz file is updated..."
-    rm -f /usr/share/nginx/html${PUBLIC_URL}app-config.js.gz
-    gzip /usr/share/nginx/html${PUBLIC_URL}app-config.js
-    touch /usr/share/nginx/html${PUBLIC_URL}app-config.js
+    rm -f /usr/share/nginx/html${PUBLIC_URL}/app-config.js.gz
+    gzip /usr/share/nginx/html${PUBLIC_URL}/app-config.js
+    touch /usr/share/nginx/html${PUBLIC_URL}/app-config.js
     echo "Compressed app-config.js to app-config.js.gz"
   else
     echo "app-config.js is empty. Skipping compression."
@@ -60,3 +63,4 @@ fi
 echo "Starting Nginx to serve the OHIF Viewer on ${PUBLIC_URL}"
 
 exec "$@"
+
