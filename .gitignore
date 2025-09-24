@@ -4,6 +4,7 @@ node_modules
 .nyc_output/
 # Output
 build
+dist
 docs/_book
 src/version.js
 junit.xml
