@@ -5,30 +5,30 @@ FROM node:20.18.1-slim as builder
 
 RUN apt-get update && apt-get install -y build-essential python3
 
-RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
+
 RUN npm install -g bun
 ENV PATH=/usr/src/app/node_modules/.bin:$PATH
 
-# Copy package manifests
+# Copy main package files
 COPY package.json yarn.lock preinstall.js lerna.json ./
 
-# Copy subproject package.json files individually
+# Copy subproject package.json files
 COPY addOns/package.json addOns/package.json
 COPY addOns/*/*/package.json addOns/
 COPY extensions/*/package.json extensions/
 COPY modes/*/package.json modes/
 COPY platform/*/package.json platform/
 
-# Clear cache and install dependencies
+# Install dependencies
 RUN bun pm cache rm
 RUN bun install
 
-# Copy the rest of the project
-COPY --link --exclude=yarn.lock --exclude=package.json --exclude=Dockerfile . .
+# Copy the rest of the project (all source files)
+COPY . .
 
 # Build
-ENV QUICK_BUILD true
+ENV QUICK_BUILD=true
 ARG APP_CONFIG=config/default.js
 ARG PUBLIC_URL=/ohif/
 ENV APP_CONFIG=${APP_CONFIG}
@@ -38,7 +38,7 @@ RUN bun run show:config
 RUN bun run build
 
 # Precompress files
-RUN chmod u+x .docker/compressDist.sh
+RUN chmod +x .docker/compressDist.sh
 RUN ./.docker/compressDist.sh
 
 #################################
