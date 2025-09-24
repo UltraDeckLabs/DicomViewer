@@ -45,66 +45,71 @@
 
 # syntax=docker/dockerfile:1
 
-FROM node:20.18.1-slim as builder
+# Stage 1: Build OHIF
+FROM node:20.18.1-slim AS builder
 
-RUN apt-get update && apt-get install -y build-essential python3
+# Install build dependencies
+RUN apt-get update && apt-get install -y build-essential python3 && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir /usr/src/app
+# Set working directory
 WORKDIR /usr/src/app
+
+# Install bun
 RUN npm install -g bun
 ENV PATH=/usr/src/app/node_modules/.bin:$PATH
 
-# Do an initial install and then a final install
+# Copy package files for initial install
 COPY package.json yarn.lock preinstall.js lerna.json ./
 COPY --parents ./addOns/package.json ./addOns/*/*/package.json ./extensions/*/package.json ./modes/*/package.json ./platform/*/package.json ./
 
+# Clean bun cache and install dependencies
 RUN bun pm cache rm
 RUN bun install
 
-# Copy the local directory
+# Copy the rest of the source code
 COPY --link --exclude=yarn.lock --exclude=package.json --exclude=Dockerfile . .
 
-# Build
-ENV QUICK_BUILD true
+# Build environment variables
+ENV QUICK_BUILD=true
 ARG APP_CONFIG=config/default.js
 ARG PUBLIC_URL=/ohif/
-ENV PUBLIC_URL=${PUBLIC_URL}
+ENV PUBLIC_URL=/ohif/
 
+# Show config and build
 RUN bun run show:config
 RUN bun run build
 
-# Precompress files
-RUN chmod u+x .docker/compressDist.sh
+# Precompress assets
+RUN chmod +x ./.docker/compressDist.sh
 RUN ./.docker/compressDist.sh
 
+# Stage 2: Nginx serving
+FROM nginxinc/nginx-unprivileged:1.27-alpine
 
-# -------------------------------
-# Stage 2: Nginx final image
-# -------------------------------
-FROM nginxinc/nginx-unprivileged:1.27-alpine as final
-
-ARG PUBLIC_URL=/ohif
+ARG PUBLIC_URL=/ohif/
 ENV PUBLIC_URL=${PUBLIC_URL}
 ARG PORT=80
 ENV PORT=${PORT}
 
+# Remove default config
 RUN rm /etc/nginx/conf.d/default.conf
 
 USER nginx
+
+# Copy OHIF viewer build
 COPY --chown=nginx:nginx .docker/Viewer-v3.x /usr/src
-RUN chmod 777 /usr/src/entrypoint.sh
-
-# \u2705 Copy build output into /usr/share/nginx/html/ohif
-COPY --from=builder /usr/src/app/platform/app/public/config/default.js /usr/share/nginx/html/ohif/config/default.js
+COPY --from=builder /usr/src/app/platform/app/public/config/default.js /usr/share/nginx/html/config/default.js
 COPY --from=builder /usr/src/app/platform/app/dist /usr/share/nginx/html${PUBLIC_URL}
-
-# Copy microscopy viewer as root-level (still needed)
 COPY --from=builder /usr/src/app/platform/app/dist/dicom-microscopy-viewer /usr/share/nginx/html/dicom-microscopy-viewer
 
-# Permissions
+# Set permissions for entrypoint script
+RUN chmod 777 /usr/src/entrypoint.sh
+
+# Ensure nginx user owns all files
 USER root
 RUN chown -R nginx:nginx /usr/share/nginx/html
 USER nginx
 
+# Entrypoint and command
 ENTRYPOINT ["/usr/src/entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
