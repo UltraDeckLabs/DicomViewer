@@ -8,11 +8,16 @@ fi
 
 # Write app-config.js from the APP_CONFIG file if set
 if [ -n "$APP_CONFIG" ]; then
-  # normalize PUBLIC_URL (remove trailing slash if present)
+  # normalize PUBLIC_URL (ensure leading slash, remove trailing slash)
   PUBLIC_URL=${PUBLIC_URL%/}
+  [ "${PUBLIC_URL:0:1}" != "/" ] && PUBLIC_URL="/$PUBLIC_URL"
+
+  # normalize APP_CONFIG (remove leading slash if present)
+  APP_CONFIG=${APP_CONFIG#/}
 
   CONFIG_FILE="/usr/share/nginx/html${PUBLIC_URL}/${APP_CONFIG}"
   OUTPUT_FILE="/usr/share/nginx/html${PUBLIC_URL}/app-config.js"
+
 
   if [ -f "$CONFIG_FILE" ]; then
     echo "Using APP_CONFIG from $CONFIG_FILE"
