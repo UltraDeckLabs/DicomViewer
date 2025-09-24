@@ -1,4 +1,3 @@
-# syntax=docker/dockerfile:1.7-labs
 # This dockerfile is used to publish the `ohif/app` image on dockerhub.
 #
 # It's a good example of how to build our static application and package it
@@ -46,6 +45,7 @@
 # syntax=docker/dockerfile:1
 
 # Stage 1: Build OHIF
+
 FROM node:20.18.1-slim AS builder
 
 # Install build dependencies
