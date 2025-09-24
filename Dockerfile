@@ -1,73 +1,80 @@
-##############################
+# -------------------------------
 # Stage 1: Build OHIF with Bun
-##############################
-FROM node:20.18.1-slim as builder
+# -------------------------------
+  FROM node:20-slim AS builder
 
-RUN apt-get update && apt-get install -y build-essential python3
+  RUN apt-get update && apt-get install -y build-essential python3
 
-WORKDIR /usr/src/app
+  # Set working directory
+  WORKDIR /usr/src/app
 
-RUN npm install -g bun
-ENV PATH=/usr/src/app/node_modules/.bin:$PATH
+  # Install Bun globally
+  RUN npm install -g bun
+  ENV PATH=/usr/src/app/node_modules/.bin:$PATH
 
-# Copy main package files
-COPY package.json yarn.lock preinstall.js lerna.json ./
+  # Copy package manifests first for dependency install
+  COPY package.json yarn.lock preinstall.js lerna.json ./
 
-# Copy subproject package.json files
-COPY addOns/package.json addOns/package.json
-COPY addOns/*/*/package.json addOns/
-COPY extensions/*/package.json extensions/
-COPY modes/*/package.json modes/
-COPY platform/*/package.json platform/
+  # Copy all package.json files for sub-packages
+  COPY addOns/*/*/package.json ./addOns/
+  COPY extensions/*/package.json ./extensions/
+  COPY modes/*/package.json ./modes/
+  COPY platform/*/package.json ./platform/
 
-# Install dependencies
-RUN bun pm cache rm
-RUN bun install
+  # Clean Bun cache and install dependencies
+  RUN bun pm cache rm
+  RUN bun install
 
-# Copy the rest of the project (all source files)
-COPY . .
+  # Copy the rest of the project
+  COPY . .
 
-# Build
-ENV QUICK_BUILD=true
-ARG APP_CONFIG=config/default.js
-ARG PUBLIC_URL=/ohif/
-ENV APP_CONFIG=${APP_CONFIG}
-ENV PUBLIC_URL=${PUBLIC_URL}
+  # Build arguments
+  ENV QUICK_BUILD true
+  ARG APP_CONFIG=config/default.js
+  ARG PUBLIC_URL=/ohif/
+  ENV APP_CONFIG=${APP_CONFIG}
+  ENV PUBLIC_URL=${PUBLIC_URL}
 
-RUN bun run show:config
-RUN bun run build
+  # Show config and build OHIF
+  RUN bun run show:config
+  RUN bun run build
 
-# Precompress files
-RUN chmod +x .docker/compressDist.sh
-RUN ./.docker/compressDist.sh
+  # Precompress files
+  RUN chmod u+x .docker/compressDist.sh
+  RUN ./.docker/compressDist.sh
 
-#################################
-# Stage 2: Serve OHIF with Nginx
-#################################
-FROM nginxinc/nginx-unprivileged:1.27-alpine as final
 
-ARG PUBLIC_URL=/ohif
-ENV PUBLIC_URL=${PUBLIC_URL}
-ARG PORT=80
-ENV PORT=${PORT}
+  # -------------------------------
+  # Stage 2: Nginx final image
+  # -------------------------------
+  FROM nginx:alpine AS final
 
-RUN rm /etc/nginx/conf.d/default.conf
+  # Environment variables
+  ARG PUBLIC_URL=/ohif
+  ENV PUBLIC_URL=${PUBLIC_URL}
+  ARG PORT=80
+  ENV PORT=${PORT}
 
-USER nginx
-COPY --chown=nginx:nginx .docker/Viewer-v3.x /usr/src
-RUN chmod 777 /usr/src/entrypoint.sh
+  # Remove default config
+  RUN rm /etc/nginx/conf.d/default.conf
 
-# Copy OHIF build output
-COPY --from=builder /usr/src/app/platform/app/public/config/default.js /usr/share/nginx/html/ohif/config/default.js
-COPY --from=builder /usr/src/app/platform/app/dist /usr/share/nginx/html${PUBLIC_URL}
+  # Copy OHIF entrypoint and scripts
+  COPY --chown=nginx:nginx .docker/Viewer-v3.x /usr/src
+  RUN chmod +x /usr/src/entrypoint.sh
 
-# Copy microscopy viewer at root-level
-COPY --from=builder /usr/src/app/platform/app/dist/dicom-microscopy-viewer /usr/share/nginx/html/dicom-microscopy-viewer
+  # Copy build output
+  COPY --from=builder /usr/src/app/platform/app/public/config/default.js /usr/share/nginx/html/ohif/config/default.js
+  COPY --from=builder /usr/src/app/platform/app/dist /usr/share/nginx/html${PUBLIC_URL}
 
-# Fix permissions
-USER root
-RUN chown -R nginx:nginx /usr/share/nginx/html
-USER nginx
+  # Copy microscopy viewer
+  COPY --from=builder /usr/src/app/platform/app/dist/dicom-microscopy-viewer /usr/share/nginx/html/dicom-microscopy-viewer
 
-ENTRYPOINT ["/usr/src/entrypoint.sh"]
-CMD ["nginx", "-g", "daemon off;"]
+  # Permissions
+  RUN chown -R nginx:nginx /usr/share/nginx/html
+
+  # Use unprivileged user
+  USER nginx
+
+  # Entrypoint and default command
+  ENTRYPOINT ["/usr/src/entrypoint.sh"]
+  CMD ["nginx", "-g", "daemon off;"]
