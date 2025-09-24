@@ -68,8 +68,8 @@ COPY --link --exclude=yarn.lock --exclude=package.json --exclude=Dockerfile . .
 ENV QUICK_BUILD true
 # ENV GENERATE_SOURCEMAP=false
 ARG APP_CONFIG=config/default.js
-ARG PUBLIC_URL=/
-ENV PUBLIC_URL=${PUBLIC_URL}
+ARG PUBLIC_URL=/ohif
+ENV PUBLIC_URL=/ohif
 
 RUN bun run show:config
 RUN bun run build
