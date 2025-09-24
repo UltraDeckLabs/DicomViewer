@@ -58,10 +58,11 @@ WORKDIR /usr/src/app
 RUN npm install -g bun
 ENV PATH=/usr/src/app/node_modules/.bin:$PATH
 
-# Copy package files for initial install
+# Copy only essential package files first
 COPY package.json yarn.lock preinstall.js lerna.json ./
-COPY addOns/package.json ./addOns/
-COPY addOns/*/*/package.json ./addOns/
+
+# Copy sub-package package.json files
+COPY addOns/package.json addOns/*/*/package.json ./addOns/
 COPY extensions/*/package.json ./extensions/
 COPY modes/*/package.json ./modes/
 COPY platform/*/package.json ./platform/
@@ -70,14 +71,14 @@ COPY platform/*/package.json ./platform/
 RUN bun pm cache rm
 RUN bun install
 
-# Copy the rest of the source code
-COPY --link --exclude=yarn.lock --exclude=package.json --exclude=Dockerfile . .
+# Copy all remaining source files (rely on .dockerignore for exclusions)
+COPY . .
 
 # Build environment variables
 ENV QUICK_BUILD=true
 ARG APP_CONFIG=config/default.js
 ARG PUBLIC_URL=/ohif/
-ENV PUBLIC_URL=/ohif/
+ENV PUBLIC_URL=${PUBLIC_URL}
 
 # Show config and build
 RUN bun run show:config
