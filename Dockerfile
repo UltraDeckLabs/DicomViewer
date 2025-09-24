@@ -60,7 +60,11 @@ ENV PATH=/usr/src/app/node_modules/.bin:$PATH
 
 # Copy package files for initial install
 COPY package.json yarn.lock preinstall.js lerna.json ./
-COPY --parents ./addOns/package.json ./addOns/*/*/package.json ./extensions/*/package.json ./modes/*/package.json ./platform/*/package.json ./
+COPY addOns/package.json ./addOns/
+COPY addOns/*/*/package.json ./addOns/
+COPY extensions/*/package.json ./extensions/
+COPY modes/*/package.json ./modes/
+COPY platform/*/package.json ./platform/
 
 # Clean bun cache and install dependencies
 RUN bun pm cache rm
