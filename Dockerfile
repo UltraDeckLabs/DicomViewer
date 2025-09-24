@@ -3,45 +3,41 @@
 ##############################
 FROM node:20.18.1-slim as builder
 
-# Install build tools
 RUN apt-get update && apt-get install -y build-essential python3
 
-# Setup working directory
 RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
-
-# Install Bun
 RUN npm install -g bun
 ENV PATH=/usr/src/app/node_modules/.bin:$PATH
 
 # Copy package manifests
 COPY package.json yarn.lock preinstall.js lerna.json ./
-COPY --parents \
-    ./addOns/package.json \
-    ./addOns/*/*/package.json \
-    ./extensions/*/package.json \
-    ./modes/*/package.json \
-    ./platform/*/package.json ./
+
+# Copy subproject package.json files individually
+COPY addOns/package.json addOns/package.json
+COPY addOns/*/*/package.json addOns/
+COPY extensions/*/package.json extensions/
+COPY modes/*/package.json modes/
+COPY platform/*/package.json platform/
 
 # Clear cache and install dependencies
 RUN bun pm cache rm
 RUN bun install
 
-# Copy project files (excluding Dockerfile, package.json, yarn.lock)
+# Copy the rest of the project
 COPY --link --exclude=yarn.lock --exclude=package.json --exclude=Dockerfile . .
 
-# Build environment variables
+# Build
 ENV QUICK_BUILD true
 ARG APP_CONFIG=config/default.js
 ARG PUBLIC_URL=/ohif/
 ENV APP_CONFIG=${APP_CONFIG}
 ENV PUBLIC_URL=${PUBLIC_URL}
 
-# Show configuration and build
 RUN bun run show:config
 RUN bun run build
 
-# Precompress build output
+# Precompress files
 RUN chmod u+x .docker/compressDist.sh
 RUN ./.docker/compressDist.sh
 
@@ -55,10 +51,8 @@ ENV PUBLIC_URL=${PUBLIC_URL}
 ARG PORT=80
 ENV PORT=${PORT}
 
-# Remove default Nginx config
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Copy helper scripts
 USER nginx
 COPY --chown=nginx:nginx .docker/Viewer-v3.x /usr/src
 RUN chmod 777 /usr/src/entrypoint.sh
@@ -75,6 +69,5 @@ USER root
 RUN chown -R nginx:nginx /usr/share/nginx/html
 USER nginx
 
-# Entrypoint & Nginx
 ENTRYPOINT ["/usr/src/entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
