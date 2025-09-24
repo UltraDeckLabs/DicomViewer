@@ -94,7 +94,7 @@ USER nginx
 COPY --chown=nginx:nginx .docker/Viewer-v3.x /usr/src
 RUN chmod 777 /usr/src/entrypoint.sh
 
-# Copy build output into /usr/share/nginx/html/ohif
+# \u2705 Copy build output into /usr/share/nginx/html/ohif
 COPY --from=builder /usr/src/app/platform/app/public/config/default.js /usr/share/nginx/html/ohif/config/default.js
 COPY --from=builder /usr/src/app/platform/app/dist /usr/share/nginx/html${PUBLIC_URL}
 
