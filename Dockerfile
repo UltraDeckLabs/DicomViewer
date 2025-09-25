@@ -50,27 +50,30 @@ FROM node:20.18.1-slim as builder
 
 RUN apt-get update && apt-get install -y build-essential python3
 
-
 RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
 RUN npm install -g bun
 RUN npm install -g lerna@7.4.2
 ENV PATH=/usr/src/app/node_modules/.bin:$PATH
 
-# Do an initial install and then a final install
+# Copy main package files
 COPY package.json yarn.lock preinstall.js lerna.json ./
-COPY --parents ./addOns/package.json ./addOns/*/*/package.json ./extensions/*/package.json ./modes/*/package.json ./platform/*/package.json ./
-# Run the install before copying the rest of the files
 
+# Copy workspace directories
+COPY addOns ./addOns
+COPY extensions ./extensions
+COPY modes ./modes
+COPY platform ./platform
+
+# Clear bun cache and install
 RUN bun pm cache rm
 RUN bun install
-# Copy the local directory
-COPY --link --exclude=yarn.lock --exclude=package.json --exclude=Dockerfile . .
 
-# Build here
-# After install it should hopefully be stable until the local directory changes
-ENV QUICK_BUILD true
-# ENV GENERATE_SOURCEMAP=false
+# Copy the rest of the project
+COPY . .
+
+# Build
+ENV QUICK_BUILD=true
 ARG APP_CONFIG=config/default.js
 ARG PUBLIC_URL=/ohif/
 ENV PUBLIC_URL=${PUBLIC_URL}
@@ -78,9 +81,10 @@ ENV PUBLIC_URL=${PUBLIC_URL}
 RUN bun run show:config
 RUN bun run build
 
-# Precompress files
+# Precompress
 RUN chmod u+x .docker/compressDist.sh
 RUN ./.docker/compressDist.sh
+
 
 # Stage 3: Bundle the built application into a Docker container
 # which runs Nginx using Alpine Linux
