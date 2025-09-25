@@ -85,28 +85,39 @@ RUN bun run build
 RUN chmod u+x .docker/compressDist.sh
 RUN ./.docker/compressDist.sh
 
+# Explicitly ensure default.js exists
+RUN mkdir -p /usr/src/app/platform/app/public/config
+COPY platform/app/public/config/default.js /usr/src/app/platform/app/public/config/default.js
 
-# Stage 3: Bundle the built application into a Docker container
-# which runs Nginx using Alpine Linux
+
+# -------------------------------
+# Stage 2: Nginx final image
+# -------------------------------
 FROM nginxinc/nginx-unprivileged:1.27-alpine as final
-#RUN apk add --no-cache bash
+
 ARG PUBLIC_URL=/ohif/
 ENV PUBLIC_URL=${PUBLIC_URL}
 ARG PORT=80
 ENV PORT=${PORT}
+
 RUN rm /etc/nginx/conf.d/default.conf
+
+# Copy Viewer scripts & entrypoint
 USER nginx
 COPY --chown=nginx:nginx .docker/Viewer-v3.x /usr/src
-RUN chmod 777 /usr/src/entrypoint.sh
+RUN chmod +x /usr/src/entrypoint.sh
+
+# Copy build output
 COPY --from=builder /usr/src/app/platform/app/dist /usr/share/nginx/html${PUBLIC_URL}
-# Copy paths that are renamed/redirected generally
-# Microscopy libraries depend on root level include, so must be copied
 COPY --from=builder /usr/src/app/platform/app/dist/dicom-microscopy-viewer /usr/share/nginx/html/dicom-microscopy-viewer
 
-# In entrypoint.sh, app-config.js might be overwritten, so chmod it to be writeable.
-# The nginx user cannot chmod it, so change to root.
+# Copy config file for entrypoint.sh
+COPY --from=builder /usr/src/app/platform/app/public/config/default.js /usr/share/nginx/html/ohif/config/default.js
+
+# Fix permissions
 USER root
 RUN chown -R nginx:nginx /usr/share/nginx/html && chmod -R u+rwX /usr/share/nginx/html
 USER nginx
+
 ENTRYPOINT ["/usr/src/entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
