@@ -88,8 +88,10 @@ RUN bun run build
 RUN chmod +x ./.docker/compressDist.sh
 RUN ./.docker/compressDist.sh
 
-# Stage 2: Nginx serving
-FROM nginxinc/nginx-unprivileged:1.27-alpine as final
+#################################
+# Stage 2: Serve OHIF with Nginx
+#################################
+FROM nginx:alpine as final
 
 # Optional: install bash if needed
 # RUN apk add --no-cache bash
@@ -103,11 +105,8 @@ ENV PORT=${PORT}
 # Remove default Nginx config
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Set nginx user for copying files
-USER nginx
-
 # Copy custom scripts and resources
-COPY --chown=nginx:nginx .docker/Viewer-v3.x /usr/src
+COPY .docker/Viewer-v3.x /usr/src
 RUN chmod 777 /usr/src/entrypoint.sh
 
 # Copy OHIF build output from builder stage
@@ -117,10 +116,8 @@ COPY --from=builder /usr/src/app/platform/app/dist /usr/share/nginx/html${PUBLIC
 # Copy microscopy viewer (requires root-level paths)
 COPY --from=builder /usr/src/app/platform/app/dist/dicom-microscopy-viewer /usr/share/nginx/html/dicom-microscopy-viewer
 
-# Fix permissions for Nginx user
-USER root
-RUN chown -R nginx:nginx /usr/share/nginx/html
-USER nginx
+# Fix permissions for nginx user
+RUN chown -R 1000:1000 /usr/share/nginx/html  # nginx user in official image typically UID 1000
 
 # Entrypoint and default command
 ENTRYPOINT ["/usr/src/entrypoint.sh"]
