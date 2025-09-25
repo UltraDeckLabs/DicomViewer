@@ -31,7 +31,7 @@
 
   # Build OHIF
   ENV QUICK_BUILD=true
-  ARG APP_CONFIG=config/default.js
+  ARG APP_CONFIG=default.js
   ARG PUBLIC_URL=/ohif
   ENV PUBLIC_URL=${PUBLIC_URL}
 
