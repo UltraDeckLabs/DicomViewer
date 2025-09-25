@@ -75,7 +75,7 @@ COPY . .
 # Build
 ENV QUICK_BUILD=true
 ARG APP_CONFIG=config/default.js
-ARG PUBLIC_URL=/ohif/
+ARG PUBLIC_URL=/ohif
 ENV PUBLIC_URL=${PUBLIC_URL}
 
 RUN bun run show:config
@@ -95,7 +95,7 @@ COPY platform/app/public/config/default.js /usr/src/app/platform/app/public/conf
 # -------------------------------
 FROM nginxinc/nginx-unprivileged:1.27-alpine as final
 
-ARG PUBLIC_URL=/ohif/
+ARG PUBLIC_URL=/ohif
 ENV PUBLIC_URL=${PUBLIC_URL}
 ARG PORT=80
 ENV PORT=${PORT}
