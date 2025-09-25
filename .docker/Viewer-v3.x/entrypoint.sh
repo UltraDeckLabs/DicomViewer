@@ -6,18 +6,14 @@ else
   envsubst '${PORT}:${PUBLIC_URL}' < /usr/src/default.conf.template > /etc/nginx/conf.d/default.conf
 fi
 
-# Write app-config.js from the APP_CONFIG file if set
+# Normalize PUBLIC_URL (ensure leading slash, remove trailing slash)
+PUBLIC_URL=${PUBLIC_URL%/}
+[ "${PUBLIC_URL:0:1}" != "/" ] && PUBLIC_URL="/$PUBLIC_URL"
+
+# Write app-config.js
 if [ -n "$APP_CONFIG" ]; then
-  # normalize PUBLIC_URL (ensure leading slash, remove trailing slash)
-  PUBLIC_URL=${PUBLIC_URL%/}
-  [ "${PUBLIC_URL:0:1}" != "/" ] && PUBLIC_URL="/$PUBLIC_URL"
-
-  # normalize APP_CONFIG (remove leading slash if present)
-  APP_CONFIG=${APP_CONFIG#/}
-
-  CONFIG_FILE="/usr/share/nginx/html${PUBLIC_URL}/${APP_CONFIG}"
+  CONFIG_FILE="/usr/src/config/${APP_CONFIG}"
   OUTPUT_FILE="/usr/share/nginx/html${PUBLIC_URL}/app-config.js"
-
 
   if [ -f "$CONFIG_FILE" ]; then
     echo "Using APP_CONFIG from $CONFIG_FILE"
@@ -46,26 +42,5 @@ else
   echo "No app-config.js file found. Skipping compression."
 fi
 
-# Google Cloud Healthcare-specific config
-if [ -n "$CLIENT_ID" ] || [ -n "$HEALTHCARE_API_ENDPOINT" ]; then
-  if [ -n "$CLIENT_ID" ]; then
-    echo "Google Cloud Healthcare \$CLIENT_ID has been provided: "
-    echo "$CLIENT_ID"
-    echo "Updating config..."
-    sed -i -e "s/YOURCLIENTID.apps.googleusercontent.com/$CLIENT_ID/g" /usr/share/nginx/html/google.js
-  fi
-
-  if [ -n "$HEALTHCARE_API_ENDPOINT" ]; then
-    echo "Google Cloud Healthcare \$HEALTHCARE_API_ENDPOINT has been provided: "
-    echo "$HEALTHCARE_API_ENDPOINT"
-    echo "Updating config..."
-    sed -i -e "s+https://healthcare.googleapis.com/v1+$HEALTHCARE_API_ENDPOINT+g" /usr/share/nginx/html/google.js
-  fi
-
-  cp /usr/share/nginx/html/google.js /usr/share/nginx/html/app-config.js
-fi
-
 echo "Starting Nginx to serve the OHIF Viewer on ${PUBLIC_URL}"
-
 exec "$@"
-
