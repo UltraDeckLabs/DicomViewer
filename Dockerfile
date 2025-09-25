@@ -89,32 +89,39 @@ RUN chmod +x ./.docker/compressDist.sh
 RUN ./.docker/compressDist.sh
 
 # Stage 2: Nginx serving
-FROM nginx:1.27-alpine
+FROM nginxinc/nginx-unprivileged:1.27-alpine as final
 
+# Optional: install bash if needed
+# RUN apk add --no-cache bash
+
+# Environment variables
 ARG PUBLIC_URL=/ohif/
 ENV PUBLIC_URL=${PUBLIC_URL}
 ARG PORT=80
 ENV PORT=${PORT}
 
-# Remove default config
+# Remove default Nginx config
 RUN rm /etc/nginx/conf.d/default.conf
 
+# Set nginx user for copying files
 USER nginx
 
-# Copy OHIF viewer build
+# Copy custom scripts and resources
 COPY --chown=nginx:nginx .docker/Viewer-v3.x /usr/src
-COPY --from=builder /usr/src/app/platform/app/public/config/default.js /usr/share/nginx/html/config/default.js
-COPY --from=builder /usr/src/app/platform/app/dist /usr/share/nginx/html${PUBLIC_URL}
-COPY --from=builder /usr/src/app/platform/app/dist/dicom-microscopy-viewer /usr/share/nginx/html/dicom-microscopy-viewer
-
-# Set permissions for entrypoint script
 RUN chmod 777 /usr/src/entrypoint.sh
 
-# Ensure nginx user owns all files
+# Copy OHIF build output from builder stage
+COPY --from=builder /usr/src/app/platform/app/public/config/default.js /usr/share/nginx/html/config/default.js
+COPY --from=builder /usr/src/app/platform/app/dist /usr/share/nginx/html${PUBLIC_URL}
+
+# Copy microscopy viewer (requires root-level paths)
+COPY --from=builder /usr/src/app/platform/app/dist/dicom-microscopy-viewer /usr/share/nginx/html/dicom-microscopy-viewer
+
+# Fix permissions for Nginx user
 USER root
 RUN chown -R nginx:nginx /usr/share/nginx/html
 USER nginx
 
-# Entrypoint and command
+# Entrypoint and default command
 ENTRYPOINT ["/usr/src/entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
