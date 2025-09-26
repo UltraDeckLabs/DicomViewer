@@ -8,7 +8,7 @@
   WORKDIR /usr/src/app
 
   # Tools
-  RUN npm install -g bun lerna@7.4.2
+  RUN npm install -g lerna@7.4.2
   ENV PATH=/usr/src/app/node_modules/.bin:$PATH
 
   # Copy base files
@@ -20,9 +20,8 @@
   COPY modes ./modes
   COPY platform ./platform
 
-  # Clear bun cache and install deps
-  RUN bun pm cache rm
-  RUN bun install
+  # Install dependencies with Yarn
+  RUN yarn install --frozen-lockfile
 
   # Copy rest of project
   COPY . .
@@ -37,8 +36,8 @@
   ARG APP_CONFIG=default.js
   ENV APP_CONFIG=$APP_CONFIG
 
-  RUN bun run show:config
-  RUN bun run build
+  RUN yarn run show:config
+  RUN PUBLIC_URL=/ohif yarn run build
 
   # Precompress (optional)
   RUN chmod u+x .docker/compressDist.sh && ./.docker/compressDist.sh
