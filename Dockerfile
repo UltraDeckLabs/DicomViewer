@@ -9,11 +9,11 @@ RUN apt-get update && apt-get install -y build-essential python3
 WORKDIR /usr/src/app
 
 # Install global tools
-RUN npm install -g bun lerna@7.4.2
+RUN npm install -g lerna@7.4.2
 ENV PATH=/usr/src/app/node_modules/.bin:$PATH
 
-# Copy base files
-COPY package.json yarn.lock preinstall.js lerna.json ./
+# Copy base files (no yarn.lock at root, so skip it)
+COPY package.json preinstall.js lerna.json ./
 
 # Copy workspaces
 COPY addOns ./addOns
@@ -21,8 +21,8 @@ COPY extensions ./extensions
 COPY modes ./modes
 COPY platform ./platform
 
-# Clear bun cache and install dependencies
-RUN bun pm cache rm && bun install
+# Install dependencies with yarn
+RUN yarn install --frozen-lockfile || yarn install
 
 # Copy remaining project files
 COPY . .
@@ -37,8 +37,8 @@ ENV PUBLIC_URL=$PUBLIC_URL
 ARG APP_CONFIG=default.js
 ENV APP_CONFIG=$APP_CONFIG
 
-RUN bun run show:config
-RUN bun run build
+RUN yarn run show:config
+RUN PUBLIC_URL=$PUBLIC_URL yarn run build
 
 # Precompress (optional)
 RUN chmod u+x .docker/compressDist.sh && ./.docker/compressDist.sh
