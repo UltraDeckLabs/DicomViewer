@@ -38,6 +38,8 @@ ARG APP_CONFIG=default.js
 ENV APP_CONFIG=$APP_CONFIG
 
 RUN yarn run show:config
+# Disable Nx daemon in container builds
+ENV NX_DAEMON=false
 RUN PUBLIC_URL=$PUBLIC_URL yarn run build
 
 # Precompress (optional)
