@@ -71,6 +71,7 @@ RUN chmod +x /usr/src/entrypoint.sh
 # Copy built OHIF app into subpath (PUBLIC_URL=/ohif)
 COPY --from=builder /usr/src/app/platform/app/dist /usr/share/nginx/html${PUBLIC_URL}
 COPY --from=builder /usr/src/app/platform/app/dist/dicom-microscopy-viewer /usr/share/nginx/html/dicom-microscopy-viewer
+COPY --from=builder /usr/src/app/platform/app/public/assets /usr/share/nginx/html/assets
 
 # Copy config for entrypoint
 COPY --from=builder /usr/src/config/default.js /usr/src/config/default.js
