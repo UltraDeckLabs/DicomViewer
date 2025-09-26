@@ -31,7 +31,7 @@ COPY . .
 ENV QUICK_BUILD=true
 
 # Make PUBLIC_URL available at build time
-ARG PUBLIC_URL=/ohif
+ARG PUBLIC_URL=/
 ENV PUBLIC_URL=$PUBLIC_URL
 
 ARG APP_CONFIG=default.js
@@ -55,7 +55,7 @@ COPY platform/app/public/config/default.js /usr/src/config/default.js
 # -------------------------------
 FROM nginxinc/nginx-unprivileged:1.27-alpine AS final
 
-ARG PUBLIC_URL=/ohif
+ARG PUBLIC_URL=/
 ENV PUBLIC_URL=$PUBLIC_URL
 
 ARG PORT=80
