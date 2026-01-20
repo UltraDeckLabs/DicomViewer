@@ -115,8 +115,7 @@ window.config = {
         supportsFuzzyMatching: true,
         supportsWildcard: true,
         requestOptions: {
-          auth: 'radadmin:radture@orthanc2025',
-          requestFromBrowser: true
+          auth: 'Basic ' + btoa('radadmin:radture@orthanc2025'),
         },
       },
     },
