@@ -55,7 +55,7 @@
 /******/ 	// the startup function
 /******/ 	__webpack_require__.x = () => {
 /******/ 		// Load entry module and return exports
-/******/ 		var __webpack_exports__ = __webpack_require__.O(undefined, ["vendors-node_modules_cornerstonejs_tools_dist_esm_utilities_segmentation_index_js","vendors-node_modules_comlink_dist_esm_comlink_mjs","vendors-node_modules_kitware_vtk_js_Common_DataModel_ImageData_js","vendors-node_modules_cornerstonejs_core_dist_esm_index_js","vendors-node_modules_cornerstonejs_tools_dist_esm_enums_index_js-node_modules_cornerstonejs_t-d98942"], () => (__webpack_require__("../../../node_modules/@cornerstonejs/tools/dist/esm/workers/computeWorker.js")))
+/******/ 		var __webpack_exports__ = __webpack_require__.O(undefined, ["vendors-node_modules_cornerstonejs_tools_dist_esm_utilities_segmentation_index_js","vendors-node_modules_comlink_dist_esm_comlink_mjs","vendors-node_modules_kitware_vtk_js_Common_DataModel_ImageData_js","vendors-node_modules_cornerstonejs_core_dist_esm_RenderingEngine_BaseVolumeViewport_js","vendors-node_modules_cornerstonejs_tools_dist_esm_enums_index_js-node_modules_cornerstonejs_t-d98942"], () => (__webpack_require__("../../../node_modules/@cornerstonejs/tools/dist/esm/workers/computeWorker.js")))
 /******/ 		__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 		return __webpack_exports__;
 /******/ 	};
@@ -167,7 +167,7 @@
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("65c13601045c1f0c0e60")
+/******/ 		__webpack_require__.h = () => ("d9dfe2f8ed8f212ee4b0")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
@@ -623,7 +623,7 @@
 /******/ 		
 /******/ 		__webpack_require__.i.push((options) => {
 /******/ 			const originalFactory = options.factory;
-/******/ 			options.factory = (moduleObject,moduleExports,webpackRequire) => {
+/******/ 			options.factory = function(moduleObject, moduleExports, webpackRequire) {
 /******/ 				const hotRequire = (request) => (webpackRequire(request));
 /******/ 				const createPropertyDescriptor = (name) => {
 /******/ 					return {
@@ -1154,7 +1154,7 @@
 /******/ 	(() => {
 /******/ 		var next = __webpack_require__.x;
 /******/ 		__webpack_require__.x = () => {
-/******/ 			return Promise.all(["vendors-node_modules_cornerstonejs_tools_dist_esm_utilities_segmentation_index_js","vendors-node_modules_comlink_dist_esm_comlink_mjs","vendors-node_modules_kitware_vtk_js_Common_DataModel_ImageData_js","vendors-node_modules_cornerstonejs_core_dist_esm_index_js","vendors-node_modules_cornerstonejs_tools_dist_esm_enums_index_js-node_modules_cornerstonejs_t-d98942"].map(__webpack_require__.e, __webpack_require__)).then(next);
+/******/ 			return Promise.all(["vendors-node_modules_cornerstonejs_tools_dist_esm_utilities_segmentation_index_js","vendors-node_modules_comlink_dist_esm_comlink_mjs","vendors-node_modules_kitware_vtk_js_Common_DataModel_ImageData_js","vendors-node_modules_cornerstonejs_core_dist_esm_RenderingEngine_BaseVolumeViewport_js","vendors-node_modules_cornerstonejs_tools_dist_esm_enums_index_js-node_modules_cornerstonejs_t-d98942"].map(__webpack_require__.e, __webpack_require__)).then(next);
 /******/ 		};
 /******/ 	})();
 /******/ 	

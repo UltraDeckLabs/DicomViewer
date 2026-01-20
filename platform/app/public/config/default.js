@@ -105,9 +105,9 @@ window.config = {
       configuration: {
         friendlyName: 'Radture Orthanc Server',
         name: 'orthanc',
-        wadoUriRoot: 'https://pacs.myradture.com/orthanc/wado',
-        qidoRoot: 'https://pacs.myradture.com/orthanc/dicom-web',
-        wadoRoot: 'https://pacs.myradture.com/orthanc/dicom-web',
+        wadoUriRoot: 'https://pacs.myradture.com/wado',
+        qidoRoot: 'https://pacs.myradture.com/dicom-web',
+        wadoRoot: 'https://pacs.myradture.com/dicom-web',
         qidoSupportsIncludeField: true,
         imageRendering: 'wadors',
         thumbnailRendering: 'wadors',
@@ -115,11 +115,11 @@ window.config = {
         supportsFuzzyMatching: true,
         supportsWildcard: true,
         requestOptions: {
-          requestFromBrowser: true,
+          auth: 'radadmin:radture@orthanc2025',
+          requestFromBrowser: true
         },
       },
     },
-
 
     {
       namespace: '@ohif/extension-default.dataSourcesModule.dicomweb',
@@ -237,9 +237,9 @@ window.config = {
       configuration: {
         friendlyName: 'local Orthanc DICOMWeb Server',
         name: 'DCM4CHEE',
-        wadoUriRoot: 'http://localhost/pacs/dicom-web',
-        qidoRoot: 'http://localhost/pacs/dicom-web',
-        wadoRoot: 'http://localhost/pacs/dicom-web',
+        wadoUriRoot: 'http://localhost/dicom-web',
+        qidoRoot: 'http://localhost/dicom-web',
+        wadoRoot: 'http://localhost/dicom-web',
         qidoSupportsIncludeField: true,
         supportsReject: true,
         dicomUploadEnabled: true,

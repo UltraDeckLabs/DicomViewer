@@ -112,5 +112,8 @@
     "workerpool",
     "Colorbar",
     "Colorbars"
-  ]
+  ],
+  "[javascript]": {
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  }
 }
