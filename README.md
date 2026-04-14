@@ -52,7 +52,7 @@ provided by the <a href="https://ohif.org/">Open Health Imaging Foundation (OHIF
 
 ## About
 
-The Radture Viewer can retrieve
+The OHIF Viewer can retrieve
 and load images from most sources and formats; render sets in 2D, 3D, and
 reconstructed representations; allows for the manipulation, annotation, and
 serialization of observations; supports internationalization, OpenID Connect,
@@ -106,6 +106,79 @@ us.
 
 
 ## Developing
+
+### Local Setup (Linux and Windows)
+
+#### Requirements
+
+- Node 18+ (Node 20 LTS recommended)
+- Yarn 1.20+
+
+#### Linux (Arch-based)
+
+1. Install Node 20 via `nvm` (recommended)
+
+```bash
+sudo pacman -S nvm
+source /usr/share/nvm/init-nvm.sh
+nvm install 20
+nvm use 20
+```
+
+2. Install Yarn
+
+```bash
+sudo pacman -S yarn
+yarn -v
+```
+
+3. Install dependencies and run
+
+```bash
+yarn config set workspaces-experimental true
+yarn install
+yarn dev
+```
+
+If Cypress download fails due to network/DNS, you can skip it during install:
+
+```bash
+CYPRESS_INSTALL_BINARY=0 yarn install
+```
+
+#### Windows
+
+1. Install Node 20 LTS
+
+- Download the Node 20 LTS installer from nodejs.org and install it.
+- Open a new PowerShell window and confirm:
+
+```powershell
+node -v
+```
+
+2. Enable Corepack and Yarn
+
+```powershell
+corepack enable
+corepack prepare yarn@stable --activate
+yarn -v
+```
+
+3. Install dependencies and run
+
+```powershell
+yarn config set workspaces-experimental true
+yarn install
+yarn dev
+```
+
+If Cypress download fails due to network/proxy, skip it during install:
+
+```powershell
+$env:CYPRESS_INSTALL_BINARY=0
+yarn install
+```
 
 ### Branches
 
