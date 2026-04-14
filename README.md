@@ -139,6 +139,11 @@ yarn config set workspaces-experimental true
 yarn install
 yarn dev
 ```
+Alternative faster dev mode (uses rsbuild instead of webpack):
+
+```bash
+yarn dev:fast
+```
 
 If Cypress download fails due to network/DNS, you can skip it during install:
 
@@ -171,6 +176,11 @@ yarn -v
 yarn config set workspaces-experimental true
 yarn install
 yarn dev
+```
+Alternative faster dev mode (uses rsbuild instead of webpack):
+
+```powershell
+yarn dev:fast
 ```
 
 If Cypress download fails due to network/proxy, skip it during install:
