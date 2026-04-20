@@ -1,24 +1,24 @@
 .LineChart svg {
-  color: #ddd;
-  border: solid 1px #383f42;
+  color: #008a2e;
+  border: solid 1px #008a2e;
 }
 
 .LineChart svg .background {
   stroke: none;
-  fill: #151c20;
+  fill: #0d1f14;
 }
 
 .LineChart svg .axis.label {
-  fill: #ddd;
+  fill: #008a2e;
   font-size: 12px;
 }
 
 .LineChart svg .axis .tick line {
-  stroke: #ddd;
+  stroke: #008a2e;
 }
 
 .LineChart svg .axis .tick text {
-  fill: #ddd;
+  fill: #008a2e;
 }
 
 .LineChart svg .axis.grid .domain {
@@ -26,7 +26,7 @@
 }
 
 .LineChart svg .axis.grid .tick line {
-  stroke: #383f42;
+  stroke: #008a2e;
 }
 
 .LineChart svg .line {
@@ -36,5 +36,5 @@
 
 .LineChart svg .legend .legend-background {
   fill: none;
-  stroke: #383f42;
+  stroke: #008a2e;
 }

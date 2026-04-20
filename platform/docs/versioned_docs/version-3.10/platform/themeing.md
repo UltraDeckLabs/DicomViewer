@@ -50,7 +50,7 @@ module.exports = {
         light: '#5acce6',
         main: '#0944b3',
         dark: '#090c29',
-        active: '#348cfd',
+        active: '#129145',
       },
 
       secondary: {
@@ -89,7 +89,7 @@ primary: {
   light: ‘#5ACCE6’,
   main: ‘#0944B3’,
   dark: ‘#090C29’,
-  active: ‘#348CFD’,
+  active: ‘#129145’,
 }
 ```
 

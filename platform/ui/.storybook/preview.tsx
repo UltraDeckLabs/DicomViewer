@@ -57,7 +57,7 @@ export const parameters = {
       },
       {
         name: 'OHIF-v3',
-        value: '#090C29',
+        value: '#0d1f14',
       },
       {
         name: 'Light',

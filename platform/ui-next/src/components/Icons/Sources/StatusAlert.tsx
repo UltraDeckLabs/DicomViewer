@@ -15,7 +15,7 @@ export const StatusError = (props: IconProps) => (
     >
       <path d="M0 0h16v16H0z" />
       <rect
-        stroke="#7BB2CE"
+        stroke="#008a2e"
         fill="#0D0E24"
         x=".5"
         y=".5"
