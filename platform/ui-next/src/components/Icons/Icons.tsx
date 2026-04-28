@@ -57,6 +57,7 @@ import StatusUntracked from './Sources/StatusUntracked';
 import StatusWarning from './Sources/StatusWarning';
 import Tab4D from './Sources/Tab4D';
 import TabLinear from './Sources/TabLinear';
+import TabReport from './Sources/TabReport';
 import TabPatientInfo from './Sources/TabPatientInfo';
 import TabRoiThreshold from './Sources/TabRoiThreshold';
 import TabSegmentation from './Sources/TabSegmentation';
@@ -498,6 +499,7 @@ export const Icons = {
   StatusUntracked,
   Tab4D,
   TabLinear,
+  TabReport,
   TabPatientInfo,
   TabRoiThreshold,
   TabSegmentation,
@@ -638,6 +640,7 @@ export const Icons = {
   'tab-segmentation': (props: IconProps) => TabSegmentation(props),
   'tab-studies': (props: IconProps) => TabStudies(props),
   'tab-linear': (props: IconProps) => TabLinear(props),
+  'tab-report': (props: IconProps) => TabReport(props),
   'tab-4d': (props: IconProps) => Tab4D(props),
   'tab-patient-info': (props: IconProps) => TabPatientInfo(props),
   'tab-roi-threshold': (props: IconProps) => TabRoiThreshold(props),

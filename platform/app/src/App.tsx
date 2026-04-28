@@ -57,7 +57,8 @@ function App({
      *
      */
     showLoadingIndicator: true,
-    showStudyList: true,
+    showStudyList: false,
+    customReturnUrl: 'https://staging.dashboard.myradture.com/cases',
     oidc: [],
     extensions: [],
   },
@@ -86,7 +87,8 @@ function App({
 
   // Set appConfig
   const appConfigState = init.appConfig;
-  const { routerBasename, modes, dataSources, oidc, showStudyList } = appConfigState;
+  const { routerBasename, modes, dataSources, oidc, showStudyList, customReturnUrl } =
+    appConfigState;
 
   // get the maximum 3D texture size
   const canvas = document.createElement('canvas');
@@ -150,6 +152,7 @@ function App({
     hotkeysManager,
     routerBasename,
     showStudyList,
+    customReturnUrl,
   });
 
   if (oidc) {
