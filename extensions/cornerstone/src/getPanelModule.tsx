@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Toolbox } from '@ohif/extension-default';
 import PanelSegmentation from './panels/PanelSegmentation';
-import PanelReport from './panels/PanelReport';
 import ActiveViewportWindowLevel from './components/ActiveViewportWindowLevel';
 import PanelMeasurement from './panels/PanelMeasurement';
 
@@ -88,20 +87,6 @@ const getPanelModule = ({ commandsManager, servicesManager, extensionManager }: 
       iconLabel: 'Segmentation',
       label: 'Segmentation',
       component: wrappedPanelSegmentationWithTools,
-    },
-    {
-      name: 'panelReport',
-      iconName: 'tab-report',
-      iconLabel: 'Report',
-      label: 'Report',
-      component: ({ configuration }) => {
-        return (
-          <PanelReport
-            servicesManager={servicesManager}
-            configuration={configuration}
-          />
-        );
-      },
     },
   ];
 };

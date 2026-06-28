@@ -31,168 +31,74 @@
 
 @layer base {
   :root {
-    --highlight: 144 100% 27%; /* #008a2e */
-    --neutral: 144 20% 30%;
-
-    --background: 144 100% 5%; /* #0d1f14 */
-    --foreground: 0 0% 100%; /* white */
-
-    --card: 144 100% 5%; /* #0d1f14 */
-    --card-foreground: 0 0% 100%; /* white */
-
-    --popover: 144 100% 5%; /* #0d1f14 */
-    --popover-foreground: 0 0% 100%; /* white */
-
-    --primary: 144 100% 27%; /* #008a2e */
-    --primary-foreground: 0 0% 100%; /* white */
-
-    --secondary: 144 100% 27%; /* #008a2e */
-    --secondary-foreground: 0 0% 100%; /* white */
-
-    --muted: 144 100% 10%;
-    --muted-foreground: 0 0% 80%;
-
-    --accent: 144 100% 27%; /* #008a2e */
-    --accent-foreground: 0 0% 100%; /* white */
-
-    --destructive: 0 70% 45%;
+    --highlight: 191 74% 63%;
+    --neutral: 213 22% 59%;
+    --background: 236 62% 5%;
+    --foreground: 0 0% 98%;
+    --card: 236 62% 5%;
+    --card-foreground: 0 0% 98%;
+    --popover: 219 90% 15%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 214 98% 60%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 214 66% 48%;
+    --secondary-foreground: 200 50% 84%;
+    --muted: 234 64% 10%;
+    --muted-foreground: 200 46% 65%;
+    --accent: 217 79% 24%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-
-    --border: 144 100% 27%; /* #008a2e */
-    --input: 144 100% 5%; /* #0d1f14 */
-
-    --ring: 144 100% 27%; /* #008a2e */
-
-    --chart-1: 144 100% 27%;
-    --chart-2: 144 100% 20%;
-    --chart-3: 144 100% 15%;
-    --chart-4: 144 100% 10%;
-    --chart-5: 144 100% 5%;
-
+    --border: 0 0% 14.9%;
+    --input: 236 52% 30%;
+    --ring: 214 98% 60%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
     --radius: 0.5rem;
+    --success-bg: hsl(143, 85%, 96%);
+    --success-border: hsl(145, 92%, 91%);
+    --success-text: hsl(140, 100%, 27%);
 
-    --success-bg: hsl(144, 100%, 5%);
-    --success-border: hsl(144, 100%, 27%);
-    --success-text: hsl(0, 0%, 100%);
+    --info-bg: hsl(208, 100%, 97%);
+    --info-border: hsl(221, 91%, 91%);
+    --info-text: hsl(210, 92%, 45%);
 
-    --info-bg: hsl(144, 100%, 5%);
-    --info-border: hsl(144, 100%, 27%);
-    --info-text: hsl(0, 0%, 100%);
+    --warning-bg: hsl(49, 100%, 97%);
+    --warning-border: hsl(49, 91%, 91%);
+    --warning-text: hsl(31, 92%, 45%);
 
-    --warning-bg: hsl(45, 80%, 20%);
-    --warning-border: hsl(45, 70%, 35%);
-    --warning-text: hsl(45, 95%, 60%);
-
-    --error-bg: hsl(0, 40%, 18%);
-    --error-border: hsl(0, 60%, 35%);
-    --error-text: hsl(0, 80%, 60%);
+    --error-bg: hsl(359, 100%, 97%);
+    --error-border: hsl(359, 100%, 94%);
+    --error-text: hsl(360, 100%, 45%);
   }
 
   .dark {
-    --background: 144 100% 5%; /* #0d1f14 */
-    --foreground: 0 0% 100%; /* white */
-
-    --card: 144 100% 5%; /* #0d1f14 */
-    --card-foreground: 0 0% 100%; /* white */
-
-    --popover: 144 100% 5%; /* #0d1f14 */
-    --popover-foreground: 0 0% 100%; /* white */
-
-    --primary: 144 100% 27%; /* #008a2e */
-    --primary-foreground: 0 0% 100%; /* white */
-
-    --secondary: 144 100% 27%; /* #008a2e */
-    --secondary-foreground: 0 0% 100%; /* white */
-
-    --muted: 144 100% 10%;
-    --muted-foreground: 0 0% 80%;
-
-    --accent: 144 100% 27%; /* #008a2e */
-    --accent-foreground: 0 0% 100%; /* white */
-
-    --destructive: 0 70% 45%;
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 214 98% 60%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-
-    --border: 144 100% 27%; /* #008a2e */
-
-    --input: 144 100% 5%; /* #0d1f14 */
-
-    --ring: 144 100% 27%; /* #008a2e */
-
-    --chart-1: 144 100% 27%;
-    --chart-2: 144 100% 20%;
-    --chart-3: 144 100% 15%;
-    --chart-4: 144 100% 10%;
-    --chart-5: 144 100% 5%;
+    --border: 0 0% 14.9%;
+    --input: 236 52% 30%;
+    --ring: 214 98% 60%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
   }
-}
-
-/* ===== GLOBAL GREEN OVERRIDE LAYER ===== */
-
-/* Blue backgrounds -> dark green */
-[class*='bg-primary'],
-[class*='bg-secondary'],
-[class*='bg-bkg'],
-[class*='bg-customblue'] {
-  background-color: #0d1f14 !important;
-}
-
-/* Blue borders -> green */
-[class*='border'],
-[class*='outline'] {
-  border-color: #008a2e !important;
-  outline-color: #008a2e !important;
-}
-
-/* Blue text/icons -> green */
-svg,
-svg path,
-[class*='text-primary'],
-[class*='text-secondary'],
-[class*='text-actions'] {
-  color: #008a2e !important;
-  fill: #008a2e !important;
-  stroke: #008a2e !important;
-}
-
-/* Buttons */
-button {
-  background-color: #008a2e !important;
-  border-color: #008a2e !important;
-  color: white !important;
-}
-
-button:hover {
-  background-color: #007a28 !important;
-}
-
-/* Study cards */
-[class*='thumbnail'],
-[class*='study'],
-[class*='series'] {
-  background-color: #0d1f14 !important;
-  border-color: #008a2e !important;
-}
-
-/* Right floating tool strip */
-[class*='toolbar'],
-[class*='toolgroup'] {
-  background-color: #0d1f14 !important;
-  border-color: #008a2e !important;
-}
-
-/* Viewport active border */
-[class*='viewport'] {
-  border: 2px solid #008a2e !important;
-  outline: 2px solid #008a2e !important;
-}
-
-/* Nuclear option for leftover blue hexes rendered inline */
-[style*='#129145'],
-[style*='#0944b3'],
-[style*='#102d1c'],
-[style*='#25E472'] {
-  background-color: #0d1f14 !important;
-  border-color: #008a2e !important;
-  color: #008a2e !important;
 }

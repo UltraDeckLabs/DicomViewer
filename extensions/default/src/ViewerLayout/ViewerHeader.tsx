@@ -18,16 +18,6 @@ function ViewerHeader({ appConfig }: withAppTypes<{ appConfig: AppTypes.Config }
   const location = useLocation();
 
   const onClickReturnButton = () => {
-    // Check for custom return URL configuration
-    const customReturnUrl = appConfig?.customReturnUrl;
-
-    if (customReturnUrl) {
-      // Navigate to custom return URL (your app)
-      window.location.href = customReturnUrl;
-      return;
-    }
-
-    // Default behavior: navigate to study list
     const { pathname } = location;
     const dataSourceIdx = pathname.indexOf('/', 1);
 
@@ -94,7 +84,7 @@ function ViewerHeader({ appConfig }: withAppTypes<{ appConfig: AppTypes.Config }
   return (
     <Header
       menuOptions={menuOptions}
-      isReturnEnabled={!!appConfig.customReturnUrl}
+      isReturnEnabled={!!appConfig.showStudyList}
       onClickReturnButton={onClickReturnButton}
       WhiteLabeling={appConfig.whiteLabeling}
       Secondary={<Toolbar buttonSection="secondary" />}

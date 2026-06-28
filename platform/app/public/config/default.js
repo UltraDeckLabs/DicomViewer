@@ -7,8 +7,7 @@ window.config = {
   extensions: [],
   modes: [],
   customizationService: {},
-  showStudyList: false,
-  customReturnUrl: 'https://staging.dashboard.myradture.com/cases',
+  showStudyList: true,
   // some windows systems have issues with more than 3 web workers
   maxNumberOfWebWorkers: 3,
   // below flag is for performance reasons, but it might not work for all servers
@@ -116,7 +115,7 @@ window.config = {
         supportsFuzzyMatching: true,
         supportsWildcard: true,
         requestOptions: {
-          requestFromBrowser: true,
+          requestFromBrowser: true
         },
       },
     },
@@ -297,21 +296,21 @@ window.config = {
     // Could use services manager here to bring up a dialog/modal if needed.
     console.warn('test, navigate to https://ohif.org/');
   },
-  whiteLabeling: {
-    createLogoComponentFn: function (React) {
-      return React.createElement(
-        'a',
-        {
-          target: '_self',
-          rel: 'noopener noreferrer',
-          className: 'text-purple-600 line-through',
-          href: '_X___IDC__LOGO__LINK___Y_',
-        },
-        React.createElement('img', {
-          src: 'https://res.cloudinary.com/dop85y9gl/image/upload/v1762970742/Membership-container_mqz0t2.png',
-          className: 'w-30 h-10',
-        })
-      );
-    },
-  },
+  // whiteLabeling: {
+  //   createLogoComponentFn: function (React) {
+  //     return React.createElement(
+  //       'a',
+  //       {
+  //         target: '_self',
+  //         rel: 'noopener noreferrer',
+  //         className: 'text-purple-600 line-through',
+  //         href: '_X___IDC__LOGO__LINK___Y_',
+  //       },
+  //       React.createElement('img', {
+  //         src: './Logo.svg',
+  //         className: 'w-14 h-14',
+  //       })
+  //     );
+  //   },
+  // },
 };
