@@ -127,7 +127,6 @@ declare global {
       activateViewportBeforeInteraction?: boolean;
       autoPlayCine?: boolean;
       showStudyList?: boolean;
-      customReturnUrl?: string;
       whiteLabeling?: Record<string, unknown>;
       httpErrorHandler?: (error: Error) => void;
       dangerouslyUseDynamicConfig?: {

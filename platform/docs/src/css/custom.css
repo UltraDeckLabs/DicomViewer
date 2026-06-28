@@ -8,27 +8,27 @@
 
 @layer base {
   :root {
-    --highlight: 144 100% 27%; /* #008a2e */
-    --neutral: 144 20% 30%;
-    --background: 144 100% 5%; /* #0d1f14 */
-    --foreground: 0 0% 100%; /* white */
-    --card: 144 100% 5%; /* #0d1f14 */
-    --card-foreground: 0 0% 100%; /* white */
-    --popover: 144 100% 5%; /* #0d1f14 */
-    --popover-foreground: 0 0% 100%; /* white */
-    --primary: 144 100% 27%; /* #008a2e */
-    --primary-foreground: 0 0% 100%; /* white */
-    --secondary: 144 100% 27%; /* #008a2e */
-    --secondary-foreground: 0 0% 100%; /* white */
-    --muted: 144 100% 10%;
-    --muted-foreground: 0 0% 80%;
-    --accent: 144 100% 27%; /* #008a2e */
-    --accent-foreground: 0 0% 100%; /* white */
+    --highlight: 191 74% 63%;
+    --neutral: 213 22% 59%;
+    --background: 236 62% 5%;
+    --foreground: 0 0% 98%;
+    --card: 236 62% 5%;
+    --card-foreground: 0 0% 98%;
+    --popover: 219 90% 15%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 214 98% 60%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 214 66% 48%;
+    --secondary-foreground: 200 50% 84%;
+    --muted: 234 64% 10%;
+    --muted-foreground: 200 46% 65%;
+    --accent: 217 79% 24%;
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 144 100% 27%; /* #008a2e */
-    --input: 144 100% 5%; /* #0d1f14 */
-    --ring: 144 100% 27%; /* #008a2e */
+    --border: 0 0% 14.9%;
+    --input: 236 52% 30%;
+    --ring: 214 98% 60%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
@@ -41,30 +41,30 @@
   }
 
   .dark {
-    --background: 144 100% 5%; /* #0d1f14 */
-    --foreground: 0 0% 100%; /* white */
-    --card: 144 100% 5%; /* #0d1f14 */
-    --card-foreground: 0 0% 100%; /* white */
-    --popover: 144 100% 5%; /* #0d1f14 */
-    --popover-foreground: 0 0% 100%; /* white */
-    --primary: 144 100% 27%; /* #008a2e */
-    --primary-foreground: 0 0% 100%; /* white */
-    --secondary: 144 100% 27%; /* #008a2e */
-    --secondary-foreground: 0 0% 100%; /* white */
-    --muted: 144 100% 10%;
-    --muted-foreground: 0 0% 80%;
-    --accent: 144 100% 27%; /* #008a2e */
-    --accent-foreground: 0 0% 100%; /* white */
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 214 98% 60%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 144 100% 27%; /* #008a2e */
-    --input: 144 100% 5%; /* #0d1f14 */
-    --ring: 144 100% 27%; /* #008a2e */
-    --chart-1: 144 100% 27%;
-    --chart-2: 144 100% 20%;
-    --chart-3: 144 100% 15%;
-    --chart-4: 144 100% 10%;
-    --chart-5: 144 100% 5%;
+    --border: 0 0% 14.9%;
+    --input: 236 52% 30%;
+    --ring: 214 98% 60%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
     --badge-new-color: hsl(var(--primary-foreground));
     --badge-new-background: linear-gradient(135deg, hsl(var(--highlight)), hsl(var(--primary)));
     --badge-latest-stable-color: hsl(var(--primary));
@@ -250,21 +250,21 @@ input[type='number'] {
 /* https://infima.dev/docs/utilities/colors */
 /* https://docs.theochu.com/docusaurus/styling/ */
 :root {
-  --ifm-color-primary: #008a2e;
-  --ifm-color-primary-dark: rgb(0, 122, 40);
-  --ifm-color-primary-darker: rgb(0, 106, 34);
-  --ifm-color-primary-darkest: rgb(0, 90, 28);
-  --ifm-color-primary-light: rgb(0, 154, 62);
-  --ifm-color-primary-lighter: rgb(0, 170, 72);
-  --ifm-color-primary-lightest: rgb(0, 186, 82);
-  --ifm-font-color-base: #ffffff;
-  --ifm-color-primary: #008a2e;
-  --ifm-color-primary-dark: #007a28;
-  --ifm-color-primary-darker: #006a22;
-  --ifm-color-primary-darkest: #005a1c;
-  --ifm-color-primary-light: #009a3e;
-  --ifm-color-primary-lighter: #00aa48;
-  --ifm-color-primary-lightest: #00ba52;
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: rgb(33, 175, 144);
+  --ifm-color-primary-darker: rgb(31, 165, 136);
+  --ifm-color-primary-darkest: rgb(26, 136, 112);
+  --ifm-color-primary-light: rgb(70, 203, 174);
+  --ifm-color-primary-lighter: rgb(102, 212, 189);
+  --ifm-color-primary-lightest: rgb(146, 224, 208);
+  --ifm-font-color-base: #474747;
+  --ifm-color-primary: #0151d9;
+  --ifm-color-primary-dark: #0149c3;
+  --ifm-color-primary-darker: #0145b8;
+  --ifm-color-primary-darkest: #013998;
+  --ifm-color-primary-light: #0159ef;
+  --ifm-color-primary-lighter: #015dfa;
+  --ifm-color-primary-lightest: #1d71fe;
   --ifm-color-secondary: #e8f7f7;
   --ifm-code-font-size: 95%;
   --ifm-background-color: #ffffff;
@@ -277,7 +277,7 @@ input[type='number'] {
   --ifm-table-stripe-background: #f4fbfb;
   --ifm-color-warning: #e9e489;
   --ifm-alert-color: #333333;
-  --ohif-color-border: #008a2e;
+  --ohif-color-border: #7bb2ce;
   --site-primary-hue-saturation: 167 68%;
   --site-primary-hue-saturation-light: 167 56%; /* do we really need this extra one? */
 }
@@ -289,23 +289,23 @@ html[data-theme='dark'] .header-github-link:before {
 
 html[data-theme='dark'] {
   --ifm-menu-link-sublist-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24"><path fill="rgba(0,0,0,0.4)" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
-  --ifm-color-primary: #008a2e;
-  --ifm-color-primary-dark: #007a28;
-  --ifm-color-primary-darker: #006a22;
-  --ifm-color-primary-darkest: #005a1c;
-  --ifm-color-primary-light: #009a3e;
-  --ifm-color-primary-lighter: #00aa48;
-  --ifm-color-primary-lightest: #00ba52;
+  --ifm-color-primary: #5acce6;
+  --ifm-color-primary-dark: #3ec3e2;
+  --ifm-color-primary-darker: #30bfe0;
+  --ifm-color-primary-darkest: #1da4c3;
+  --ifm-color-primary-light: #76d5ea;
+  --ifm-color-primary-lighter: #84d9ec;
+  --ifm-color-primary-lightest: #ade6f3;
   --ifm-font-color-base: #ffffff;
   --ifm-color-secondary: #050719;
-  --ifm-blockquote-color: #008a2e;
-  --ifm-background-color: #0d1f14;
-  --ifm-zoom-image-background-color: #0d1f14e5;
-  --ifm-background-surface-color: #0d1f14;
-  --ifm-menu-color: #008a2e;
-  --ifm-toc-link-color: #008a2e;
-  --ifm-code-background: #0d1f14;
-  --ifm-toc-border-color: #0d1f14;
+  --ifm-blockquote-color: #7bb2ce;
+  --ifm-background-color: #080b2b;
+  --ifm-zoom-image-background-color: #080b2be5;
+  --ifm-background-surface-color: #080b2b;
+  --ifm-menu-color: #7bb2ce;
+  --ifm-toc-link-color: #7bb2ce;
+  --ifm-code-background: #1c296d;
+  --ifm-toc-border-color: #080b2b;
   --ifm-menu-color-active: #ffffff;
   --ifm-footer-background-color: #000000;
   --ifm-table-stripe-background: #060920;
@@ -359,7 +359,7 @@ h5 {
 }
 
 blockquote {
-  border-left: 3px solid #008a2e;
+  border-left: 3px solid #4042af;
 }
 
 /* Temporary Type Size Changes */
@@ -390,7 +390,7 @@ article header h3 {
 }
 
 .footer a {
-  color: #008a2e;
+  color: #7bb2ce;
 }
 
 .footer a:hover {
@@ -450,11 +450,11 @@ article header h3 {
 }
 
 .admonition-icon svg {
-  fill: #008a2e;
+  fill: #0151d9;
 }
 
 .table-of-contents__left-border {
-  border-left: #008a2e;
+  border-left: #013998;
 }
 
 .footer__col:first-of-type {

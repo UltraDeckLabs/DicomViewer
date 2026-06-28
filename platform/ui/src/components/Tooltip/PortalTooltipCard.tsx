@@ -40,8 +40,8 @@ export default class PortalTooltipCard extends Component {
   margin = 15;
 
   defaultArrowStyle = {
-    color: '#0d1f14', // primary-dark
-    borderColor: 'rgba(0, 138, 46, 1)', // secondary-light
+    color: '#090c29', // primary-dark
+    borderColor: 'rgba(58, 63, 153, 1)', // secondary-light
   };
 
   rootRef = React.createRef();
@@ -74,23 +74,23 @@ export default class PortalTooltipCard extends Component {
   }
 
   getArrowStyle() {
-    const fgStyle = this.getBaseArrowStyle();
-    const bgStyle = this.getBaseArrowStyle();
+    let fgStyle = this.getBaseArrowStyle();
+    let bgStyle = this.getBaseArrowStyle();
     fgStyle.zIndex = 60;
     bgStyle.zIndex = 55;
 
-    const arrowStyle = {
+    let arrowStyle = {
       ...this.defaultArrowStyle,
       ...this.props.style.arrowStyle,
     };
-    const bgBorderColor = arrowStyle.borderColor ? arrowStyle.borderColor : 'transparent';
+    let bgBorderColor = arrowStyle.borderColor ? arrowStyle.borderColor : 'transparent';
 
-    const fgColorBorder = `10px solid ${arrowStyle.color}`;
-    const fgTransBorder = `${FG_SIZE}px solid transparent`;
-    const bgColorBorder = `12px solid ${bgBorderColor}`;
-    const bgTransBorder = `${BG_SIZE}px solid transparent`;
+    let fgColorBorder = `10px solid ${arrowStyle.color}`;
+    let fgTransBorder = `${FG_SIZE}px solid transparent`;
+    let bgColorBorder = `12px solid ${bgBorderColor}`;
+    let bgTransBorder = `${BG_SIZE}px solid transparent`;
 
-    const { position, arrow } = this.props;
+    let { position, arrow } = this.props;
 
     if (position === 'left' || position === 'right') {
       fgStyle.top = '50%';
@@ -159,7 +159,7 @@ export default class PortalTooltipCard extends Component {
       }
     }
 
-    const { color, borderColor, ...propsArrowStyle } = this.props.style.arrowStyle;
+    let { color, borderColor, ...propsArrowStyle } = this.props.style.arrowStyle;
 
     const state = {
       fgStyle: this.mergeStyle(fgStyle, propsArrowStyle),
@@ -186,7 +186,7 @@ export default class PortalTooltipCard extends Component {
 
   mergeStyle(style, theme) {
     if (theme) {
-      const { position, top, left, right, bottom, marginLeft, marginRight, ...validTheme } = theme;
+      let { position, top, left, right, bottom, marginLeft, marginRight, ...validTheme } = theme;
 
       return {
         ...style,
@@ -199,14 +199,14 @@ export default class PortalTooltipCard extends Component {
 
   getStyle(position, arrow) {
     let alignOffset = 0;
-    const parent = this.props.parentEl;
-    const align = this.props.align;
-    const tooltipPosition = parent.getBoundingClientRect();
-    const scrollY = window.scrollY !== undefined ? window.scrollY : window.pageYOffset;
-    const scrollX = window.scrollX !== undefined ? window.scrollX : window.pageXOffset;
+    let parent = this.props.parentEl;
+    let align = this.props.align;
+    let tooltipPosition = parent.getBoundingClientRect();
+    let scrollY = window.scrollY !== undefined ? window.scrollY : window.pageYOffset;
+    let scrollX = window.scrollX !== undefined ? window.scrollX : window.pageXOffset;
     let top = scrollY + tooltipPosition.top;
-    const left = scrollX + tooltipPosition.left;
-    const style = {};
+    let left = scrollX + tooltipPosition.left;
+    let style = {};
 
     if (this.rootRef.current) {
       const newHeight = this.rootRef.current.offsetHeight / 2;
@@ -310,9 +310,9 @@ export default class PortalTooltipCard extends Component {
         }
         style.left = this.margin;
       } else {
-        const rightOffset = style.left + this.state.width - window.innerWidth;
+        let rightOffset = style.left + this.state.width - window.innerWidth;
         if (rightOffset > 0) {
-          const originalLeft = style.left;
+          let originalLeft = style.left;
           style.left = window.innerWidth - this.state.width - this.margin;
           arrowStyle.fgStyle.marginLeft += originalLeft - style.left;
           arrowStyle.bgStyle.marginLeft += originalLeft - style.left;
@@ -354,7 +354,7 @@ export default class PortalTooltipCard extends Component {
   }
 
   render() {
-    const { style, arrowStyle } = this.checkWindowPosition(
+    let { style, arrowStyle } = this.checkWindowPosition(
       this.getGlobalStyle(),
       this.getArrowStyle()
     );

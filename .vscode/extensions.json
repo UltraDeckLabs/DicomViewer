@@ -8,7 +8,6 @@
     "silvenon.mdx",
     "gruntfuggly.todo-tree",
     "wayou.vscode-todo-highlight",
-    "bradlc.vscode-tailwindcss",
-    "openai.chatgpt"
+    "bradlc.vscode-tailwindcss"
   ]
 }
